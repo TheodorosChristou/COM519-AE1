@@ -21,5 +21,5 @@ app.get("/tasters", (req, res) => {
 });
 
 app.listen(WEB_PORT, () => {
-  console.log(`Example app listening at http://localhost:${WEB_PORT}`);
+  console.log(`Example app listening to http://localhost:${WEB_PORT}`);
 });
