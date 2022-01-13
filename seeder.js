@@ -36,7 +36,7 @@ async function main() {
      * Import the JSON data into the database
      */
 
-    const data = await fs.readFile(path.join(__dirname, "wine.json"), "utf8");
+    const data = await fs.readFile(path.join(__dirname, "cocktail-dataset.json"), "utf8");
     await db.collection("cocktails").insertMany(JSON.parse(data));
 
     /**
@@ -45,7 +45,7 @@ async function main() {
      * we tidy up the output so it represents the format we need for our new collection
      */
 
-    const wineTastersRef = await db.collection("cocktails").aggregate([
+    const cocktailBartenderRef = await db.collection("cocktails").aggregate([
       { $match: { Bartender: { $ne: null } } },
       {
         $group: {
@@ -64,16 +64,16 @@ async function main() {
      * Below, we output the results of our aggregate into a
      * new collection
      */
-    const wineTasters = await wineTastersRef.toArray();
-    await db.collection("bartenders").insertMany(wineTasters);
+    const cocktailBartender = await cocktailBartenderRef.toArray();
+    await db.collection("bartenders").insertMany(cocktailBartender);
 
     /** Our final data manipulation is to reference each document in the
      * tastings collection to a taster id
      */
 
-    const updatedWineTastersRef = db.collection("bartenders").find({});
-    const updatedWineTasters = await updatedWineTastersRef.toArray();
-    updatedWineTasters.forEach(async ({ _id, name }) => {
+    const updatedcocktailBartenderRef = db.collection("bartenders").find({});
+    const updatedcocktailBartender = await updatedcocktailBartenderRef.toArray();
+    updatedcocktailBartender.forEach(async ({ _id, name }) => {
       await db
         .collection("cocktails")
         .updateMany({ Bartender: name }, [
