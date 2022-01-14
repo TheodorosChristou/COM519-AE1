@@ -125,6 +125,12 @@ async function main() {
           { $set: {Garnish: null } },
         ]);
 
+      await db.collection("cocktails").aggregate([
+          { $group: { _id: "$Glassware" } },
+          { $project: { name: "$_id", "_id": 0 } },
+          { $out: "Glassware" }
+      ]).toArray()
+
       await db
         .collection("cocktails")
         .updateMany({Notes: "" }, [

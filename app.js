@@ -43,7 +43,8 @@ app.get("/create-bartender", (req, res) => {
 
 app.post("/create-bartender", bartenderController.create);
 
-
+app.get("/create-cocktail", cocktailController.createView);
+app.post("/create-cocktail", cocktailController.create);
 
 app.listen(PORT, () => {
   console.log(`Example app listening to http://localhost:${PORT}`);

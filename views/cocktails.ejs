@@ -29,7 +29,7 @@
 <div class="container">
     <div class="row col-md-12 col-md-offset-2 custyle mx-auto">
       
-    <button type="button" class="btn btn-primary">Create a new bartender</button> 
+      <a href="/create-cocktail"><button type="button" class="btn btn-primary">Create a new cocktail</button></a> 
     <h1 class="mx-auto"> 🍷 Cocktail Recipies  🍷  </h1>
   
   
@@ -61,7 +61,7 @@
                 <td><%=  cocktail.Preparation  %></td>
                 <td><%=  cocktail.Notes  %></td>
                 <td><%=  cocktail.Bartender  %></td>
-                <td class="text-center"><a class='btn btn-info btn-xs'><span class="glyphicon glyphicon-edit"></span> Edit</a> 
+                <td class="text-center"><a class='btn btn-info btn-xs' href="/cocktails/delete/<%= cocktail.id %>"><span class="glyphicon glyphicon-edit"></span> Edit</a> 
                 <a  href="/cocktails/delete/<%= cocktail.id %>" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
             </tr>
             
