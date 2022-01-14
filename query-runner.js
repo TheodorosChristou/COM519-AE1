@@ -24,7 +24,6 @@ async function main() {
        }
      ] ).toArray();
     console.log("here are the results");
-    console.log("here are the results");
     console.log(results);
   } catch (error) {
     console.log(error);
