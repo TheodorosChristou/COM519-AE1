@@ -11,18 +11,28 @@ console.log("running");
 async function main() {
   try {
     await client.connect();
-    const db = client.db("myFirstDatabase");
-    const collection = db.collection("tastings");
+    const db = client.db("cocktailDatabase");
+    const collection = db.collection("cocktails");
     // type in your query down here
-     const  results = await collection.aggregate( [
+     const  results = await db.collection("cocktails").aggregate( [
+      { $match: { Bartender: { $ne: null } } },
       {
-         $group: {
-           _id: "$taster_name",
-           count: { $sum: 1 }
-
-        }
-       }
-     ] ).toArray();
+        $group: {
+          _id: "$Bartender",
+          total_recipies: { $sum: 1 },
+          Location: { $first: "$Location" },
+          Bar_Company: { $first: "$Bar_Company" },
+        },
+      },
+      {
+        $project: {
+          recipies: "$total_recipies",
+          Location: "$Location",
+          Bar_Company: "$Bar_Company"
+        },
+      },
+      { $set: { name: "$_id", _id: "$total_recipies" } },
+    ]).toArray();
     console.log("here are the results");
     console.log(results);
   } catch (error) {

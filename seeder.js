@@ -51,12 +51,16 @@ async function main() {
       {
         $group: {
           _id: "$Bartender",
-          total_recipies: { $sum: 1 }
+          total_recipies: { $sum: 1 },
+          Location: { $first: "$Location" },
+          Bar_Company: { $first: "$Bar_Company" },
         },
       },
       {
         $project: {
           recipies: "$total_recipies",
+          Location: "$Location",
+          Bar_Company: "$Bar_Company"
         },
       },
       { $set: { name: "$_id", _id: "$total_recipies" } },
@@ -67,6 +71,22 @@ async function main() {
      */
     const cocktailBartender = await cocktailBartenderRef.toArray();
     await db.collection("bartenders").insertMany(cocktailBartender);
+    cocktailBartender.forEach(async ({ _id, name }) => {
+
+      await db
+        .collection("bartenders")
+        .updateMany({Location: "" }, [
+          { $set: {Location: null } },
+        ]);
+      await db
+        .collection("bartenders")
+        .updateMany({Bar_Company: "" }, [
+          { $set: {Bar_Company: null } },
+        ]);
+
+
+    });
+
 
     /** Our final data manipulation is to reference each document in the
      * tastings collection to a taster id
