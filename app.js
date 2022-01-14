@@ -8,7 +8,7 @@ app.set("view engine", "ejs");
  * notice above we are using dotenv. We can now pull the values from our environment
  */
 
-const { WEB_PORT } = process.env;
+const { PORT } = process.env;
 
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -20,6 +20,6 @@ app.get("/tasters", (req, res) => {
   res.render("tasters");
 });
 
-app.listen(WEB_PORT, () => {
-  console.log(`Example app listening to http://localhost:${WEB_PORT}`);
+app.listen(PORT, () => {
+  console.log(`Example app listening to http://localhost:${PORT}`);
 });
