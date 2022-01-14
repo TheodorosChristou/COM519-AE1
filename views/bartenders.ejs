@@ -7,7 +7,7 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <meta name="description" content="" />
-    <title>World Wines</title>
+    <title>World Cocktails</title>
 
     <link
       rel="canonical"
@@ -30,7 +30,7 @@
     <div class="row col-md-12 col-md-offset-2 custyle mx-auto">
       
     
-      <a href="/create-taster"><button type="button" class="btn btn-primary">Create a new taster</button></a>
+      <a href="/create-bartender"><button type="button" class="btn btn-primary">Create a new bartender</button></a>
     <h1 class="mx-auto"> 🍷 All Bartenders 🍷  </h1>
   
     <table class="table table-striped custab">
@@ -57,7 +57,7 @@
                 <td><%=  bartender.Location %></td>
                 <td><%=  bartender.recipies  %></td>
                 
-                <td class="text-center"><a class='btn btn-info btn-xs'><span class="glyphicon glyphicon-edit"></span> Edit</a> 
+                <td class="text-center"><a class='btn btn-info btn-xs' href="/bartenders/update/<%= bartender.id %>"><span class="glyphicon glyphicon-edit"></span> Edit</a> 
                   <a  href="/bartenders/delete/<%= bartender.id %>" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
                  
             </tr>

@@ -20,3 +20,45 @@ exports.delete = async (req, res) => {
     });
   }
 };
+
+exports.create = async (req, res) => {
+
+  try {
+    const bartender = new Bartender({ name: req.body.name, Bar_Company: req.body.Bar_Company, Location: req.body.Location });
+    await bartender.save();
+    res.redirect('/bartenders/?message=bartender has been created')
+  } catch (e) {
+    if (e.errors) {
+      console.log(e.errors);
+      res.render('create-bartender', { errors: e.errors })
+      return;
+    }
+    return res.status(400).send({
+      message: JSON.parse(e),
+    });
+  }
+}
+
+exports.edit = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const bartender = await Bartender.findById(id);
+    res.render('update-bartender', { bartender: bartender, id: id });
+  } catch (e) {
+    res.status(404).send({
+      message: `could find bartender ${id}.`,
+    });
+  }
+};
+
+exports.update = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const bartender = await Bartender.updateOne({ _id: id }, req.body);
+    res.redirect('/bartenders');
+  } catch (e) {
+    res.status(404).send({
+      message: `could find bartender ${id}.`,
+    });
+  }
+};
