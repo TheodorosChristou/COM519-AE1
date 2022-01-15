@@ -6,6 +6,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const bartenderController = require("./controllers/bartender");
 const cocktailController = require("./controllers/cocktail");
+const cocktailApiController = require("./controllers/api/cocktail");
 app.set("view engine", "ejs");
 
 /**
@@ -28,6 +29,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.get("/", (req, res) => {
   res.render("index");
 });
+
+app.get("/search-recipe", (req, res) => {
+  res.render("search-recipe");
+});
+
+app.get("/api/search-recipe", cocktailApiController.list);
 
 app.get("/bartenders", bartenderController.list);
 app.get("/bartenders/delete/:id", bartenderController.delete);

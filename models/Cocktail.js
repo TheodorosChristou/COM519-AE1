@@ -20,4 +20,5 @@ const cocktailSchema = new Schema(
   { timestamps: true }
 );
 
+cocktailSchema.index({'$**': 'text'});
 module.exports = mongoose.model("Cocktail", cocktailSchema);
