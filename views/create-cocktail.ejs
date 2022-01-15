@@ -77,17 +77,18 @@
               </div>
 
               <div class="form-group">
-                <label for="name">Glassware</label>
-                <input
-                  type="text"
+                <label for="exampleFormControlSelect1">Select Glassware</label>
+                <select
                   class="form-control"
-                  id="Glassware"
                   name="Glassware"
-                />
+                  id="exampleFormControlSelect1"
+                >
+                  <% glasswares.forEach( glassware => { %>
 
-                <% if (errors['Glassware']) { %>
-                <p style="color: red"><%= errors['Glassware'].message %></p>
-                <% } %>
+                  <option value="<%= glassware.name %>"><%= glassware.name %></option>
+
+                  <% }) %>
+                </select>
               </div>
 
 

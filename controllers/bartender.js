@@ -46,7 +46,7 @@ exports.edit = async (req, res) => {
     res.render('update-bartender', { bartender: bartender, id: id });
   } catch (e) {
     res.status(404).send({
-      message: `could find bartender ${id}.`,
+      message: `could not find bartender ${id}.`,
     });
   }
 };
@@ -58,7 +58,7 @@ exports.update = async (req, res) => {
     res.redirect('/bartenders');
   } catch (e) {
     res.status(404).send({
-      message: `could find bartender ${id}.`,
+      message: `could not find bartender ${id}.`,
     });
   }
 };

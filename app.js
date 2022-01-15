@@ -45,6 +45,8 @@ app.post("/create-bartender", bartenderController.create);
 
 app.get("/create-cocktail", cocktailController.createView);
 app.post("/create-cocktail", cocktailController.create);
+app.get("/cocktails/update/:id", cocktailController.edit);
+app.post("/cocktails/update/:id", cocktailController.update);
 
 app.listen(PORT, () => {
   console.log(`Example app listening to http://localhost:${PORT}`);
