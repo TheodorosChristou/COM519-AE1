@@ -1,5 +1,5 @@
 const Cocktail = require("../models/Cocktail");
-const glassware = require("../models/Glassware");
+const Glassware = require("../models/Glassware");
 const Bartender = require("../models/Bartender")
 
 exports.list = async (req, res) => {
@@ -27,8 +27,15 @@ exports.list = async (req, res) => {
 
 exports.delete = async (req, res) => {
   const id = req.params.id;
+  const bartender = await Cocktail.findById(id);
+  const bartender_name = bartender.Bartender_id
+  const bartender_update = await Bartender.findById(bartender_name);
   try {
     await Cocktail.findByIdAndRemove(id);
+    await Bartender.updateOne({ name : bartender_update.name},
+      [{ $set: {recipies: bartender_update.recipies -1}}]
+    );
+
     res.redirect("/Cocktails");
   } catch (e) {
     res.status(404).send({
@@ -39,10 +46,8 @@ exports.delete = async (req, res) => {
 
 exports.createView = async (req, res) => {
   try {
-    const Glassware = await glassware.find({});
     const bartenders = await Bartender.find({});
     res.render("create-cocktail", {
-      Glassware: Glassware,
       bartenders: bartenders,
       errors: {}
     });
@@ -58,9 +63,10 @@ exports.create = async (req, res) => {
   try {
 
     const bartender = await Bartender.findById(req.body.bartender_id);
+
     await Cocktail.create({
       Cocktail_Name: req.body.Cocktail_Name,
-      Bartender: Bartender.name,
+      Bartender: bartender.name,
       Bar_Company: Bartender.Bar_Company,
       Location: Bartender.Location,
       Ingredients: req.body.Ingredients,
@@ -71,7 +77,13 @@ exports.create = async (req, res) => {
       Bartender_id: req.body.bartender_id,
     })
 
-    res.redirect('/cocktails/?message=cocktail has been created')
+    await Bartender.updateOne({ name : bartender.name},
+      [{ $set: {recipies: bartender.recipies +1}}]
+    );
+
+
+
+    res.redirect('/cocktails')
   } catch (e) {
     if (e.errors) {
       res.render('create-cocktail', { errors: e.errors })

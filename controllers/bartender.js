@@ -26,7 +26,7 @@ exports.create = async (req, res) => {
   try {
     const bartender = new Bartender({ name: req.body.name, Bar_Company: req.body.Bar_Company, Location: req.body.Location });
     await bartender.save();
-    res.redirect('/bartenders/?message=bartender has been created')
+    res.redirect('/bartenders')
   } catch (e) {
     if (e.errors) {
       console.log(e.errors);

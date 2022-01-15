@@ -128,7 +128,7 @@ async function main() {
       await db.collection("cocktails").aggregate([
           { $group: { _id: "$Glassware" } },
           { $project: { name: "$_id", "_id": 0 } },
-          { $out: "Glassware" }
+          { $out: "glasswares" }
       ]).toArray()
 
       await db
