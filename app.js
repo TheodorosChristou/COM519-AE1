@@ -7,6 +7,12 @@ const bodyParser = require("body-parser");
 const bartenderController = require("./controllers/bartender");
 const cocktailController = require("./controllers/cocktail");
 const cocktailApiController = require("./controllers/api/cocktail");
+const savedRecipeApiController = require("./controllers/api/saved_recipes");
+const deleteRecipeApiController = require("./controllers/api/delete_saved_recipes");
+const savedRecipeController = require("./controllers/saved_recipes");
+const expressSession = require("express-session");
+const User = require("./models/User");
+const userController = require("./controllers/user");
 app.set("view engine", "ejs");
 
 /**
@@ -25,6 +31,24 @@ mongoose.connection.on("error", (err) => {
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(expressSession({ secret: 'foo barr', cookie: { expires: new Date(253402300000000) } }))
+
+global.user = false;
+app.use("*", async (req, res, next) => {
+  if (req.session.userID && !global.user) {
+    const user = await User.findById(req.session.userID);
+    global.user = user;
+  }
+  next();
+})
+
+const authMiddleware = async (req, res, next) => {
+  const user = await User.findById(req.session.userID);
+  if (!user) {
+    return res.redirect('/');
+  }
+  next()
+}
 
 app.get("/", (req, res) => {
   res.render("index");
@@ -44,7 +68,7 @@ app.post("/bartenders/update/:id", bartenderController.update);
 app.get("/cocktails", cocktailController.list);
 app.get("/cocktails/delete/:id", cocktailController.delete);
 
-app.get("/create-bartender", (req, res) => {
+app.get("/create-bartender",authMiddleware, (req, res) => {
   res.render("create-bartender", { errors: {} });
 });
 
@@ -54,6 +78,26 @@ app.get("/create-cocktail", cocktailController.createView);
 app.post("/create-cocktail", cocktailController.create);
 app.get("/cocktails/update/:id", cocktailController.edit);
 app.post("/cocktails/update/:id", cocktailController.update);
+
+app.get("/register", (req, res) => {
+  res.render('register-user', { errors: {} })
+});
+
+app.post("/register", userController.create);
+app.get("/login", (req, res) => {
+  res.render('login-user', { errors: {} })
+});
+app.post("/login", userController.login);
+
+app.get("/logout", async (req, res) => {
+  req.session.destroy();
+  global.user = false;
+  res.redirect('/');
+})
+
+app.get("/favorite_recipes", savedRecipeController.list);
+
+app.post("/api/saved_recipes", savedRecipeApiController.create);
 
 app.listen(PORT, () => {
   console.log(`Example app listening to http://localhost:${PORT}`);

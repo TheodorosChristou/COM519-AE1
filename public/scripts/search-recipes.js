@@ -1,3 +1,23 @@
+const handleSave = async (id) => {
+    await fetch('/api/saved_recipes', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({id: id})
+    })
+  };
+
+  const handleDelete = async (id) => {
+    console.log(id);
+    await fetch('/api/delete_saved_recipes', {
+        method: 'POST',
+        body: JSON.stringify({id: id})
+    })
+  };
+
+
+
 const recipeView = (recipe) => `
 
 <div class="col-12">
@@ -14,7 +34,7 @@ const recipeView = (recipe) => `
                 <li class="list-group-item">Bartender: ${recipe.Bartender}</li>
           </ul>
         </div>
-        <a href="#" class="btn btn-primary">Save</a>
+        <a href="#" class="btn btn-primary" onclick="handleSave('${recipe._id}')">Save</a>
       </div>
  </div>
 `;

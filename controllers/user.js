@@ -37,7 +37,7 @@ exports.create = async (req, res) => {
     } catch (e) {
         if (e.errors) {
             console.log(e.errors);
-            res.render('create-user', { errors: e.errors })
+            res.render('register-user', { errors: e.errors })
             return;
         }
         return res.status(400).send({

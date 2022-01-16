@@ -9,9 +9,15 @@
         <a class="nav-link" href="bartenders"> Bartenders</a>
         <a class="nav-link" href="cocktails"> Cocktail Recipes</a>
         <a class="nav-link" href="search-recipe"> Search Recipes </a>
-        <a class="nav-link" href="login"> Login </a>
-        <a class="nav-link" href="register"> Register </a>
-
+        <% if(user) { %>
+          ...
+          <a class="nav-link" href="logout"> <%= user.email %> (Logout) </a>
+          <a class="nav-link" href="favorite_recipes"> Favorite Recipes </a> <%
+      }%> 
+      <% if(!user) { %>
+          <a class="nav-link" href="login"> Login </a>
+          <a class="nav-link" href="register"> Register </a>
+      <% } %>
       </div>
     </div>
   </nav>
