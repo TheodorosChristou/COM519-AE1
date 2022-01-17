@@ -31,7 +31,7 @@ exports.login = async (req, res) => {
 exports.create = async (req, res) => {
     try {
 
-        const user = new User({ email: req.body.email, password: req.body.password });
+        const user = new User({ email: req.body.email, password: req.body.password, username: req.body.username });
         await user.save();
         res.redirect('/?message=user saved')
     } catch (e) {

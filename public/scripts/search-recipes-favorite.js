@@ -36,6 +36,8 @@ const recipeView = (recipe) => `
                 <li class="list-group-item">Bartender: ${recipe.Bartender}</li>
           </ul>
         </div>
+        
+        <a href="#" class="btn btn-primary" onclick="handleSave('${recipe._id}')">Favorite</a>
       </div>
  </div>
 `;

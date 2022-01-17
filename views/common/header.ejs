@@ -8,10 +8,15 @@
         </a>
         <a class="nav-link" href="bartenders"> Bartenders</a>
         <a class="nav-link" href="cocktails"> Cocktail Recipes</a>
+        <% if(!user) { %>
         <a class="nav-link" href="search-recipe"> Search Recipes </a>
+        <% } %>
+        <% if(user) { %>
+          <a class="nav-link" href="search-recipe-favorite"> Search Recipes </a>
+        <% } %>
         <% if(user) { %>
           ...
-          <a class="nav-link" href="logout"> <%= user.email %> (Logout) </a>
+          <a class="nav-link" href="logout"> <%= user.username %> (Logout) </a>
           <a class="nav-link" href="favorite_recipes"> Favorite Recipes </a> <%
       }%> 
       <% if(!user) { %>

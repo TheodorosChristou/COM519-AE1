@@ -28,8 +28,9 @@
     <%- include('common/header'); -%>
 <div class="container">
     <div class="row col-md-12 col-md-offset-2 custyle mx-auto">
-      
-      <a href="/create-cocktail"><button type="button" class="btn btn-primary">Create a new cocktail</button></a> 
+      <% if(user) { %>
+      <a href="/create-cocktail"><button type="button" class="btn btn-primary">Create a new cocktail</button></a><%
+    }%>  
     <h1 class="mx-auto"> 🍷 Cocktail Recipes  🍷  </h1>
   
   
@@ -61,8 +62,12 @@
                 <td><%=  cocktail.Preparation  %></td>
                 <td><%=  cocktail.Notes  %></td>
                 <td><%=  cocktail.Bartender  %></td>
+
+                
+                <% if(user.username == cocktail.Bartender)  { %>
                 <td class="text-center"><a class='btn btn-info btn-xs' href="/cocktails/update/<%= cocktail.id %>"><span class="glyphicon glyphicon-edit"></span> Edit</a> 
-                <a  href="/cocktails/delete/<%= cocktail.id %>" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
+                <a  href="/cocktails/delete/<%= cocktail.id %>" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a></td><%
+                }%> 
             </tr>
             
          <%  
@@ -92,7 +97,8 @@
           <% if (currentPage > 1) { %>
               <li class="page-item"><a class="page-link" href="/cocktails">First</a></li>
           <% } %>  
-
+            <li class="page-item"><a class="page-link" href="/cocktails?page=<%= currentPage === numberOfPages ? currentPage - 12 :  currentPage - 1%>"><%= currentPage === numberOfPages ? currentPage - 12 :  currentPage - 1%></a></li>
+            <li class="page-item"><a class="page-link" href="/cocktails?page=<%= currentPage === numberOfPages ? currentPage - 11 :  currentPage%>"><%= currentPage === numberOfPages ? currentPage - 11 :  currentPage%></a></li>
             <li class="page-item"><a class="page-link" href="/cocktails?page=<%= currentPage === numberOfPages ? currentPage - 10 :  currentPage + 1 %>"><%= currentPage === numberOfPages ? currentPage - 10 :  currentPage + 1 %></a></li>
             <li class="page-item"><a class="page-link" href="/cocktails?page=<%= currentPage === numberOfPages ? currentPage - 9 :  currentPage + 2 %>"><%= currentPage === numberOfPages ? currentPage - 9 :  currentPage + 2 %></a></li>
             <li class="page-item"><a class="page-link" href="/cocktails?page=<%= currentPage === numberOfPages ? currentPage - 8 :  currentPage + 3 %>"><%= currentPage === numberOfPages ? currentPage - 8 :  currentPage + 3 %></a></li>

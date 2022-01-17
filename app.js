@@ -28,6 +28,8 @@ mongoose.connection.on("error", (err) => {
   process.exit();
 });
 
+global.count = 0;
+
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -56,6 +58,10 @@ app.get("/", (req, res) => {
 
 app.get("/search-recipe", (req, res) => {
   res.render("search-recipe");
+});
+
+app.get("/search-recipe-favorite", (req, res) => {
+  res.render("search-recipe-favorite");
 });
 
 app.get("/api/search-recipe", cocktailApiController.list);

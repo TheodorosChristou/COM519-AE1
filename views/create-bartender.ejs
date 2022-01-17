@@ -36,12 +36,14 @@
           <div class="col-">
             <form method="POST" action="/create-bartender">
               <div class="form-group">
-                <label for="name">Bartender Name</label>
+                <label for="name">Bartender Username</label>
                 <input
                   type="text"
                   class="form-control"
                   id="name"
                   name="name"
+                  value= <%= user.username %>
+                  readonly
                   placeholder="Enter Name"
                 />
 
