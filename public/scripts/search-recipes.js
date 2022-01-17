@@ -10,14 +10,6 @@ const handleSave = async (id) => {
     })
   };
 
-  const handleDelete = async (id) => {
-    console.log(id);
-    await fetch('/api/delete_saved_recipes', {
-        method: 'POST',
-        body: JSON.stringify({id: id})
-    })
-  };
-
 
 
 const recipeView = (recipe) => `

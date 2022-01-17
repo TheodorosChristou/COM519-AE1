@@ -1,7 +1,6 @@
 const User = require("../../models/User");
 exports.create = async (req, res) => {
       const recipeId = req.body.id;
-      console.log(recipeId);
       if (  !recipeId || req.session.userID) {
         res.json({result: 'error'});
       }
@@ -12,3 +11,5 @@ exports.create = async (req, res) => {
       }
   }
 
+
+    

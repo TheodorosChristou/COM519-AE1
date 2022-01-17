@@ -8,7 +8,7 @@
         content="width=device-width, initial-scale=1, shrink-to-fit=no"
       />
       <meta name="description" content="" />
-      <title>World Wines</title>
+      <title>World Cocktails</title>
 
       <link
         rel="canonical"
@@ -24,13 +24,13 @@
       />
 
       <link href="css/album.css" rel="stylesheet" />
-      <script src="scripts/search-recipes.js"></script>
+      <script src="scripts/delete-favorite-recipe.js"></script>
     </head>
     <body>
       <%- include('common/header'); -%>
 
       <div class="container">
-        <h1 class="text-center">Saved Recipes🍷</h1>
+        <h1 class="text-center">Favorite Recipes🍷</h1>
         <ul class="list-group">
   
   
@@ -62,11 +62,14 @@
                         <td><%=  recipe.Preparation  %></td>
                         <td><%=  recipe.Notes  %></td>
                         <td><%=  recipe.Bartender  %></td>
+                        <td><a   class="btn btn-danger btn-xs" onclick="handleDelete('<%=  recipe.id  %>')">Del</a></td>
                     </tr>
                     
                  <%  
                   });
                  %>
+
+                <div id="recipes"></div>
 
         </ul>
       </div>

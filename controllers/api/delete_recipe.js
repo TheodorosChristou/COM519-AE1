@@ -1,4 +1,5 @@
 const User = require("../../models/User");
+
 exports.delete = async (req, res) => {
     const recipeId = req.body.id;
     
@@ -13,4 +14,3 @@ exports.delete = async (req, res) => {
       });
     }
   };
-  

@@ -8,8 +8,8 @@ const bartenderController = require("./controllers/bartender");
 const cocktailController = require("./controllers/cocktail");
 const cocktailApiController = require("./controllers/api/cocktail");
 const savedRecipeApiController = require("./controllers/api/saved_recipes");
-const deleteRecipeApiController = require("./controllers/api/delete_saved_recipes");
 const savedRecipeController = require("./controllers/saved_recipes");
+const deleteFavoriteRecipeController = require("./controllers/api/delete_recipe");
 const expressSession = require("express-session");
 const User = require("./models/User");
 const userController = require("./controllers/user");
@@ -104,6 +104,7 @@ app.get("/logout", async (req, res) => {
 app.get("/favorite_recipes", savedRecipeController.list);
 
 app.post("/api/saved_recipes", savedRecipeApiController.create);
+app.post("/api/delete_recipe", deleteFavoriteRecipeController.delete);
 
 app.listen(PORT, () => {
   console.log(`Example app listening to http://localhost:${PORT}`);
