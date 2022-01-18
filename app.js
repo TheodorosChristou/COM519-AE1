@@ -13,6 +13,7 @@ const deleteFavoriteRecipeController = require("./controllers/api/delete_recipe"
 const expressSession = require("express-session");
 const User = require("./models/User");
 const userController = require("./controllers/user");
+const res = require("express/lib/response");
 app.set("view engine", "ejs");
 
 /**
@@ -28,7 +29,8 @@ mongoose.connection.on("error", (err) => {
   process.exit();
 });
 
-global.count = 0;
+
+global.found = 0;
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json());
@@ -105,7 +107,6 @@ app.get("/favorite_recipes", savedRecipeController.list);
 
 app.post("/api/saved_recipes", savedRecipeApiController.create);
 app.post("/api/delete_recipe", deleteFavoriteRecipeController.delete);
-
 app.listen(PORT, () => {
   console.log(`Example app listening to http://localhost:${PORT}`);
 });

@@ -1,5 +1,6 @@
 const handleDelete = async (id) => {
     console.log(id);
+
     await fetch('/api/delete_recipe', {
         method: 'POST',
         headers: {

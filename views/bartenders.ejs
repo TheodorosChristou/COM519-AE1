@@ -7,7 +7,8 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <meta name="description" content="" />
-    <title>World Cocktails</title>
+    <title>Phoenix Down | Bartenders</title>
+    <link rel="icon" type="image/png" href="/phoenix_down.png" >
 
     <link
       rel="canonical"
@@ -34,14 +35,20 @@
         
     %>
       
-    <% if(user && user.username != bartender.name && count == 0)  { %>
-        
-        <a href="/create-bartender"><button type="button" class="btn btn-primary">Create a new bartender</button></a>
-        <% count = 1; %><%
-    }%> 
+    <% if(user.username == bartender.name)  { %>
+        <% found = 1; %>
+        <%
+    }%>
+
     %>
     <%  });%>
-    <h1 class="mx-auto"> 🍷 All Bartenders 🍷    </h1>
+
+
+    <% if(user && found == 0)  { %>
+      <a href="/create-bartender"><button type="button" class="btn btn-primary">Create a new bartender</button></a>
+      <%
+    }%>
+    <h1 class="mx-auto"> 🍻  All Bartenders 🍻    </h1>
   
     <table class="table table-striped custab">
     <thead>

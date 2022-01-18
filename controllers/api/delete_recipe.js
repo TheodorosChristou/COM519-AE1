@@ -1,3 +1,4 @@
+const { render } = require("express/lib/response");
 const User = require("../../models/User");
 
 exports.delete = async (req, res) => {

@@ -8,7 +8,8 @@
         content="width=device-width, initial-scale=1, shrink-to-fit=no"
       />
       <meta name="description" content="" />
-      <title>World Cocktails</title>
+      <title>Phoenix Down | Favourites</title>
+      <link rel="icon" type="image/png" href="/phoenix_down.png" >
 
       <link
         rel="canonical"
@@ -30,7 +31,7 @@
       <%- include('common/header'); -%>
 
       <div class="container">
-        <h1 class="text-center">Favorite Recipes🍷</h1>
+        <h1 class="text-center">Favourite Recipes 🍹 </h1>
         <ul class="list-group">
   
   
@@ -62,7 +63,7 @@
                         <td><%=  recipe.Preparation  %></td>
                         <td><%=  recipe.Notes  %></td>
                         <td><%=  recipe.Bartender  %></td>
-                        <td><a   class="btn btn-danger btn-xs" onclick="handleDelete('<%=  recipe.id  %>')">Del</a></td>
+                        <td><a class="btn btn-danger btn-xs" onclick="handleDelete('<%=  recipe.id  %>')">Del</a></td>
                     </tr>
                     
                  <%  

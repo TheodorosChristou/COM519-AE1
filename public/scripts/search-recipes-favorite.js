@@ -31,7 +31,7 @@ const recipeView = (recipe) => `
           </ul>
         </div>
         
-        <a href="#" class="btn btn-primary" onclick="handleSave('${recipe._id}')">Favorite</a>
+        <a href="#" class="btn btn-primary" onclick="handleSave('${recipe._id}')">Favourite 🥂</a>
       </div>
  </div>
 `;

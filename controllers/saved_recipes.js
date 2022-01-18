@@ -6,7 +6,7 @@ exports.list = async (req, res) => {
       res.render('favorite_recipes', {recipes: userRef.saved_recipes});
     } catch (e) {
       console.log(e);
-      res.json({result: 'could not find user faves'});
+      res.json({result: 'could not find user favorites'});
     }
 }
 

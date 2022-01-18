@@ -13,7 +13,7 @@ exports.delete = async (req, res) => {
   const id = req.params.id;
   try {
     await Bartender.findByIdAndRemove(id);
-    count = 0;
+    found = 0;
     res.redirect("/bartenders");
   } catch (e) {
     res.status(404).send({

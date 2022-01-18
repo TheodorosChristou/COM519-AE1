@@ -56,7 +56,7 @@ exports.createView = async (req, res) => {
 
   } catch (e) {
     res.status(404).send({
-      message: `could not generate create data`,
+      message: `could not generate create data for cocktails`,
     });
   }
 }

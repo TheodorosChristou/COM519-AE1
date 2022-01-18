@@ -18,33 +18,21 @@ async function main() {
     const db = client.db();
     const results = await db.collection("cocktails").find({}).count();
 
-    /**
-     * If existing records then delete the current collections
-     */
+
     if (results) {
       console.info("deleting collection");
       await db.collection("cocktails").drop();
       await db.collection("bartenders").drop();
     }
 
-    /**
-     * This is just a fun little loader module that displays a spinner
-     * to the command line
-     */
     const load = loading("importing your cocktail recipies 🍷!!").start();
 
-    /**
-     * Import the JSON data into the database
-     */
+
 
     const data = await fs.readFile(path.join(__dirname, "cocktail-dataset.json"), "utf8");
     await db.collection("cocktails").insertMany(JSON.parse(data));
 
-    /**
-     * This perhaps appears a little more complex than it is. Below, we are
-     * grouping the wine tasters and summing their total tastings. Finally,
-     * we tidy up the output so it represents the format we need for our new collection
-     */
+
 
     const cocktailBartenderRef = await db.collection("cocktails").aggregate([
       { $match: { Bartender: { $ne: null } } },
@@ -65,10 +53,9 @@ async function main() {
       },
       { $set: { name: "$_id", _id: "$total_recipies" } },
     ]);
-    /**
-     * Below, we output the results of our aggregate into a
-     * new collection
-     */
+
+
+
     const cocktailBartender = await cocktailBartenderRef.toArray();
     await db.collection("bartenders").insertMany(cocktailBartender);
     cocktailBartender.forEach(async ({ _id, name }) => {
@@ -88,9 +75,6 @@ async function main() {
     });
 
 
-    /** Our final data manipulation is to reference each document in the
-     * tastings collection to a taster id
-     */
 
     const updatedcocktailBartenderRef = db.collection("bartenders").find({});
     const updatedcocktailBartender = await updatedcocktailBartenderRef.toArray();
