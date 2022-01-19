@@ -8,7 +8,7 @@ exports.delete = async (req, res) => {
       res.json({result: 'error'});
     }
     try {
-      await User.update({"_id": req.session.userID}, {$pull:{saved_recipes: recipeId}})
+      await User.updateOne({"_id": req.session.userID}, {$pull:{saved_recipes: recipeId}})
     } catch (e) {
       res.status(404).send({
         message: `could not delete favorite.`,
