@@ -1,4 +1,4 @@
-# COM519-AE1
+# COM519-AE1 Documentation
 
 Clone the repository. <br>
 Install the dependencies by running npm install in the terminal.<br>
